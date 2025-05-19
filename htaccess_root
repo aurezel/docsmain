@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^glimlapay/payglml$ checkout/checkout.php [QSA,PT,L]
+RewriteRule ^glimlapay/notifyglml$ /checkout/pay/stckWebhook [QSA,PT,L]
+RewriteRule ^glimlapay/successglml$ /checkout/pay/stckSuccess [QSA,PT,L]
+RewriteRule ^glimlapay/cancelglml$ /checkout/pay/stckCancel [QSA,PT,L]
+RewriteRule ^glimlapay/(.*)$ checkout/$1 [QSA,PT,L]
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
